@@ -42,8 +42,15 @@ fun main() {
     cat.talk()
 
     // singleton(object) & companion Object (static)
+    // 1. singleton with object
     println(SingletonKotlin.name)
     println(SingletonKotlin.doSonething())
+
+    //2. singleton with companion object
+    demoSingletonWithCompanionObject()
+
+    //3. singleton with lazy
+
 
     var pi = MyClass.PI
     println(pi)
@@ -129,12 +136,6 @@ class Cat : Animal {
     }
 }
 
-// singleton
-object SingletonKotlin {
-    var name = "Kotlin"
-    fun doSonething() {}
-}
-
 // companion object
 class MyClass {
     companion object {
@@ -145,5 +146,71 @@ class MyClass {
     }
 }
 
+// singleton
+object SingletonKotlin {
+    var name = "Kotlin"
+    fun doSonething() = "Doing something"
+}
+
+fun demoSingletonWithCompanionObject() {
+    println("Demo singleton with companion object: ")
+    val singleton1 = SingletonCompanion.getInstance()
+    println("Initial info: ${singleton1.getInfo()}")
+
+    val singleton2 = SingletonCompanion.getInstance()
+    singleton2.setInfo("New class info") // Cập nhật info
+
+    println("Updated info from singleton1: ${singleton1.getInfo()}")
+    println("Updated info from singleton2: ${singleton2.getInfo()}")
+}
+
+fun demoSingletonWithLazy() {
+    println("Demo singleton with companion lazy: ")
+
+    val singleton1 = SingletonLazy.instance
+    println("Initial info: ${singleton1.getInfo()}")
+
+    val singleton2 = SingletonLazy.instance
+    singleton2.setInfo("New class info") // Cập nhật info
+
+    println("Updated info from singleton1: ${singleton1.getInfo()}")
+    println("Updated info from singleton2: ${singleton2.getInfo()}")
+}
+
+
+class SingletonCompanion private constructor() {
+    private var info: String = "Singleton Companion"
+
+    fun getInfo(): String = info
+    fun setInfo(newInfo: String) {
+        info = newInfo
+    }
+
+    companion object {
+        @Volatile
+        private var instance: SingletonCompanion? = null
+
+        fun getInstance(): SingletonCompanion = instance ?: synchronized(this) {
+            instance ?: SingletonCompanion().also { instance = it }
+        }
+    }
+}
+
+class SingletonLazy private constructor() {
+
+    private var info: String = "Singleton Companion"
+
+    fun getInfo(): String = info
+    fun setInfo(newInfo: String) {
+        info = newInfo
+    }
+
+    companion object {
+        val instance:SingletonLazy by lazy {
+            SingletonLazy()
+        }
+    }
+
+}
 
 
