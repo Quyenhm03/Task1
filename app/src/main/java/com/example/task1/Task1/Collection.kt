@@ -69,96 +69,101 @@ fun demoMap() {
 }
 
 fun demoCollectionFunction() {
-    // remove duplicate
-    val arr = arrayOf(9, 1, 2, 3, 5, 1, 7, 3, 6)
-    println("Array with unique element use distinct: " + arr.distinct())
-    println("Array with unique element use set: " + arr.toSet())
-    println("Array with unique element use hashSet: " + arr.toHashSet())
+    val list = listOf(1, 5, 6, 3, 8)
 
-    // convert list to string
-    val listName = listOf("Nguyen", "Thi", "Quyen")
-    val name = listName.joinToString (
-        separator = " ",
-        postfix = ": Ptit"
-    )
-    println(name)
+    // aggregate functions
+    println("List has 3: " + list.any{ it == 3})
+    println("All element of list %2 == 0: " + list.all{ it % 2 == 0})
+    println("List has " + list.count { it % 3 == 0 } + "element %3 == 0")
 
-    // reduce, fold
-    val listNum = listOf(1, 2, 3, 4, 5)
-    val sumReduce = listNum.reduce { acc, i ->  acc + i}
-    println("Sum of list use reduce: " + sumReduce)
-
-    val sumFold = listNum.fold(-1) {
-        acc, i ->  acc + i
+    val sum1 = list.fold(0) {
+        total, i ->  total + i
     }
-    println("Sum of list use fold: " + sumFold)
+    println("Sum list use fold: $sum1")
 
-    // find element
-    val listStr = listOf("Milk", "Juice", "Candy", "Water")
-    println(listStr.find{ it.contains('e') })
+    val sum2 = list.reduce { total, i ->
+        total + i
+    }
+    println("Sum list use reduce: $sum2")
 
-    // union, intersect
-    val list1 = listOf(1, 2, 3, 7, 0, 5)
-    val list2 = listOf(2, 8, 6, 3, 0, 7)
-    println("Union result: " + list1.union(list2))
-    println("Intersect result: " + list1.intersect(list2))
+    val sum3 = list.sumBy {
+        it % 2
+    }
+    println("Sum of element % 2: $sum3")
 
-    // take and drop
-    val list3 = listOf(1, 2, 3, 4, 5)
-    println("Take result: " + list3.take(2))
-    println("Take last result: " + list3.takeLast(2))
-    println("Drop result: " + list3.drop(2))
-    println("Drop last result: " + list3.dropLast(2))
-
-    val list4 = list3.takeWhile { it % 2 == 0 }
-    println("Take while result: " + list4)
-
-    // sorted
-    val list5 = listOf(9, 1, 6, 7 , 4, 6)
-    println("List sort asc: " + list5.sorted())
-    println("List sort desc: " + list5.sortedDescending())
-
-    // zip, unzip
-    val listOne = listOf(1, 2, 3, 4, 5)
-    val listTwo = listOf("a", "b", "c", "d", "e", "f")
-    val listZip = listOne zip listTwo
-    println("Zip result: " + (listOne zip listTwo))
-
-    val (tmp1, tmp2) = listZip.unzip()
-    println("Unzip result: " + tmp1 + " " + tmp2)
-
-    // partition
-    val list6 = listOf(-1, 6, -9, 5, 0)
-    val (negative, positive) = list6.partition { it > 0 }
-    println("Partition result: ")
-    println(negative)
-    println(positive)
-
-    // groupBy
-    println("Group by result: " + list6.groupBy { it % 2 == 0 })
-
-    // chunked: split, list
-    println("Chunked result: " + list6.chunked(3))
-
-    // copy
-    val arrNum = arrayOf("1", "2", "3", "4", "5")
-    val arrNumCopy1 = arrNum.copyOfRange(1, 3)
-    print("Copy result with range: ")
-    arrNumCopy1.forEach { print("$it ") }
+    print("List use forEach: ")
+    list.forEach {
+        print("$it ")
+    }
     println()
 
-    val arrNumCopy2 = arrNum.copyOf(6)
-    print("Copy result with copy new size: ")
-    arrNumCopy2.forEach { print("$it ") }
-    println()
+    println("List use forEach: ")
+    list.forEachIndexed { index, value ->
+        println("position $index: $value")
+    }
 
-    // filter
-    val list = listOf(0, 1, 3, 8, 4, 8, 6, 8)
-    val filteredList = list.filter { it % 2 == 0 }
-    println("Filter result: " + filteredList)
-    println("Filter index result: " + list.filterIndexed{ value, i -> value == i })
+    println("Max element: " + list.max())
+    println("Min element: " + list.min())
+    println("List hasn't element greater than 10: " + list.none { it > 10 })
 
-    val mixedList = listOf(1, 2, 3, "one", "two", 4, "three", "four")
-    val strList = mixedList.filterIsInstance<String>()
-    print("Filter instance result: " + strList)
+    // filter functions
+    println("Drop 2 element: " + list.drop(2))
+    println("Drop while result: " + list.dropWhile { it < 5 })
+    println("Drop last while result: " + list.dropLastWhile { it < 5 })
+    println("Filter result: " + list.filter { it - 2 > 0 })
+    println("Filter not result: " + list.filterNot { it > 2 })
+    println("Slice result: " + list.slice(listOf(0, 2, 3)))
+    println("Take result: " + list.take(3))
+    println("Take while result: " + list.takeLast(3))
+    println("Take last while result: " + list.takeWhile { it < 5 })
+
+    // conversion functions
+    var listFlatMap = list.flatMap { listOf(it, it +1) }
+    println("Flat map result: $listFlatMap")
+
+    var listGroupBy = list.groupBy {
+        if(it % 2 == 0) {
+            "even"
+        } else {
+            "odd"
+        }
+    }
+    println("Group by result: " + listGroupBy)
+
+    var listMap = list.map {
+        it * 2
+    }
+    println("Map result: " + listMap)
+
+    // element functions
+    println("List contains 1: " + list.contains(1))
+    println("Element at 2: " + list.elementAt(2))
+    println("Element at 10: " + list.elementAtOrNull(10))
+    println("First element greater than 5: " + list.first{ it > 5 })
+    println("Index of 3 in list: " + list.indexOf(3))
+    println("Last element greater than 5: " + list.last{ it > 5 })
+    println("Unique element pass condition: " + list.single { it % 5 == 0 })
+
+    // generate functions
+    println("Partition result: " + list.partition { it % 2 == 0 })
+
+    val listNum = listOf(1, 2, 3)
+    val listStr = listOf("one", "two", "three", "four")
+    println("Plus result: " + listNum.plus(listStr))
+    println("Zip result: " + listNum.zip(listStr))
+
+    // functions work with order
+    println("List reverse: " + list.reversed())
+    println("List sorted: " + list.sorted())
+    println("List sorted by: " + list.sortedBy{ it % 3 == 0})
+    println("List sorted descending: " + list.sortedDescending())
+    println("List sorted by descending: " + list.sortedByDescending{ it % 3 == 0})
+
+    // mixed collection function
+    val listRes1 = list.map {
+        it * 2
+    }. filter {
+        it > 5
+    }. sorted()
+    println("Mixed function result1: " + listRes1)
 }
