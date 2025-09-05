@@ -1,4 +1,4 @@
-package com.example.task1
+package com.example.task1.Task2
 
 /*
     6. Lập trình hướng đối tượng (OOP) trong Kotlin
@@ -32,7 +32,7 @@ fun main() {
 
     // interface
     var customerRepoImpl = CustomerRepoImpl()
-    customerRepoImpl.selectCustomerById("1")
+    customerRepoImpl.selectCustomerById1("1")
 
     // Inheritance
     var dog = Dog()
@@ -50,7 +50,7 @@ fun main() {
     demoSingletonWithCompanionObject()
 
     //3. singleton with lazy
-
+    demoSingletonWithLazy()
 
     var pi = MyClass.PI
     println(pi)
@@ -97,16 +97,24 @@ class BookRepoImpl : BookRepo() {
     }
 }
 
-interface ICustomerRepo {
-    fun selectCustomerById(userId: String) {
+interface ICustomerRepo1 {
+    fun selectCustomerById1(userId: String) {
         println("Call from interface")
     }
 }
 
-class CustomerRepoImpl : ICustomerRepo {
-    override fun selectCustomerById(userId: String) {
-        super.selectCustomerById(userId)
+interface ICustomerRepo2 {
+    fun selectCustomerById2(userId: String) {
+    }
+}
+
+class CustomerRepoImpl : ICustomerRepo1, ICustomerRepo2 {
+    override fun selectCustomerById1(userId: String) {
+        super.selectCustomerById1(userId)
         println("Call inside class")
+    }
+
+    override fun selectCustomerById2(userId: String) {
     }
 }
 
@@ -158,7 +166,7 @@ fun demoSingletonWithCompanionObject() {
     println("Initial info: ${singleton1.getInfo()}")
 
     val singleton2 = SingletonCompanion.getInstance()
-    singleton2.setInfo("New class info") // Cập nhật info
+    singleton2.setInfo("New class info") // Update info
 
     println("Updated info from singleton1: ${singleton1.getInfo()}")
     println("Updated info from singleton2: ${singleton2.getInfo()}")
@@ -171,7 +179,7 @@ fun demoSingletonWithLazy() {
     println("Initial info: ${singleton1.getInfo()}")
 
     val singleton2 = SingletonLazy.instance
-    singleton2.setInfo("New class info") // Cập nhật info
+    singleton2.setInfo("New class info") // Update info
 
     println("Updated info from singleton1: ${singleton1.getInfo()}")
     println("Updated info from singleton2: ${singleton2.getInfo()}")
@@ -206,7 +214,7 @@ class SingletonLazy private constructor() {
     }
 
     companion object {
-        val instance:SingletonLazy by lazy {
+        val instance: SingletonLazy by lazy {
             SingletonLazy()
         }
     }

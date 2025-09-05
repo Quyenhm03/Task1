@@ -1,4 +1,4 @@
-package com.example.task1
+package com.example.task1.Task2
 
 /*
     4. Hàm & Extension Function
@@ -9,6 +9,8 @@ package com.example.task1
  */
 fun main() {
     demoUnitFunc()
+    demoAnonymousFunction()
+    demoHighOrderFunction()
 
     var listNumber = listOf(1, 2, 3, 4, 5)
     println("Sum of listNumber: " + demoReturnValueFunc(listNumber))
@@ -43,12 +45,18 @@ fun demoReturnValueFunc(listNumber: List<Int>) : Int {
 
 fun demoSumOneLine(a: Int, b: Int) = a + b
 
+fun demoAnonymousFunction() {
+    val sum = fun(x: Int, y: Int) : Int {
+        return x + y
+    }
+    println("Demo anonymous function: ${sum(5, 3)}")
+}
+
 fun demoWithDefaultParameter(name: String = "Nguyen Thi Quyen", school: String = "Ptit", age: Int = 22) {
     print("My name is $name studying at $school. ")
     print("I'm $age.")
     println()
 }
-
 
 // demo extension function
 fun String.validatePass() : Boolean {
@@ -61,4 +69,15 @@ fun String.validatePass() : Boolean {
     }
 
     return false
+}
+
+fun demoHighOrderFunction() {
+    var result = add(3, 4, fun(x, y: Int): Int {
+        return x + y
+    })
+    println("High order function result: $result")
+}
+
+fun add(x: Int, y: Int, func: (Int, Int) -> Int) : Int {
+    return func(x, y)
 }

@@ -1,4 +1,4 @@
-package com.example.task1
+package com.example.task1.Task1
 
 /*
     1. Cú pháp cơ bản của Kotlin
@@ -59,7 +59,7 @@ fun demoOperator() {
     a += 3
     println("a += 3 -> a = $a")
     b -= 1
-    println("b -= 3 -> b = $b")
+    println("b -= 1 -> b = $b")
 
     println("a > b : " + (a > b))
     println("a < b : " + (a < b))
@@ -83,7 +83,22 @@ fun demoConversion() {
 }
 
 fun demoString() {
-    var name = "Quyen"
+    val name = "Quyen"
     println("Hello $name!")
     println("Name has ${name.length} character")
+    println("Uppercase name: " + name.toUpperCase())
+    println("Lowercase name: " + name.toLowerCase())
+
+    val str = "Hello! My name is Quyen."
+    val str1 = str.substring(5, 10)
+    println("Sub string from 5-10: $str1")
+    println("Replace name: " + str.replace("Quyen", "abc"))
+
+    val s1 = "Kotlin"
+    val s2 = "kotlin"
+    println("Compare result: " + s1.compareTo(s2, ignoreCase = false))
+
+    val fullName = "Nguyen Thi Quyen"
+    val list = fullName.split(" ")
+    println(list)
 }
