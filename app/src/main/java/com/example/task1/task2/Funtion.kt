@@ -1,4 +1,4 @@
-package com.example.task1.Task2
+package com.example.task1.task2
 
 /*
     4. Hàm & Extension Function

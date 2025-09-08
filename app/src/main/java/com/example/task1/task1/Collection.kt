@@ -1,4 +1,4 @@
-package com.example.task1.Task1
+package com.example.task1.task1
 
 /*
     3. Collection (Danh sách dữ liệu)
@@ -158,6 +158,12 @@ fun demoCollectionFunction() {
     println("List sorted by: " + list.sortedBy{ it % 3 == 0})
     println("List sorted descending: " + list.sortedDescending())
     println("List sorted by descending: " + list.sortedByDescending{ it % 3 == 0})
+
+    // work with 2 list
+    val list1 = listOf(2, 3, 5, 7)
+    println("Plus result: " + list.plus(list1))
+    println("Union result: " + list.union(list1))
+    println("Intersct result: " + list.intersect(list1))
 
     // mixed collection function
     val listRes1 = list.map {

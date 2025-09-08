@@ -1,4 +1,4 @@
-package com.example.task1.Task2
+package com.example.task1.task2
 
 /*
     6. Lập trình hướng đối tượng (OOP) trong Kotlin

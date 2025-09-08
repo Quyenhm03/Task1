@@ -1,4 +1,4 @@
-package com.example.task1.Task1
+package com.example.task1.task1
 
 fun main() {
     demoLetOperation()

@@ -1,4 +1,4 @@
-package com.example.task1.Task2
+package com.example.task1.task2
 
 /*
     5. Null Safety (An toàn với null)
